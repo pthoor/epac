@@ -1,5 +1,5 @@
 # This pipeline is used to deploy Policies, Initiative definitions and Assignments into Azure.
-name: EPAC Retail Tenant Workflow
+name: EPAC Thoor Tenant Workflow
 
 on:
   pull_request:
