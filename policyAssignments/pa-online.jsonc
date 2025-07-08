@@ -1,0 +1,49 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/Online/",
+    "parameterFile": "pa-online.csv",
+    "definitionEntryList": [
+        {
+            "policyName": "",
+            "assignment": {
+                "append": false,
+                "name": "",
+                "displayName": "",
+                "description": ""
+            }
+        }
+    ],
+    "children": [
+        //Thoor tenant
+        {
+            "nodeName": "Online/",
+            "nonComplianceMessageColumn": "nonComplianceMessages",
+            "assignment": {
+                "name": "online",
+                "displayName": "Online"
+            },
+            "parameterSelector": "myorg-demo-online",
+            "scope": {
+                "env-thoor": [
+                    "/providers/Microsoft.Management/managementGroups/myorg-demo-online"
+                ]
+            }
+        },
+        // Thoor Security tenant
+        {
+            "nodeName": "Online/",
+            "nonComplianceMessageColumn": "nonComplianceMessages",
+            "enforcementMode": "DoNotEnforce",
+            "assignment": {
+                "name": "online",
+                "displayName": "Online"
+            },
+            "parameterSelector": "alz-landingzones-online",
+            "scope": {
+                "env-thoor-security": [
+                    "/providers/Microsoft.Management/managementGroups/alz-landingzones-online"
+                ]
+            }
+        }
+    ]
+}

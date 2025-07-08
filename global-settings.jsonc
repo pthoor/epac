@@ -1,0 +1,35 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/global-settings-schema.json",
+    "pacOwnerId": "00000000-0000-0000-0000-000000000000",
+    "pacEnvironments": [
+        {
+            "pacSelector": "env-thoor",
+            "cloud": "AzureCloud",
+            "tenantId": "53e99220-a268-4aca-bfa9-883bcb880767",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/myorg",
+            "desiredState": {
+                "strategy": "full",
+                "keepDfcSecurityAssignments": false,
+                "doNotDisableDeprecatedPolicies": false
+            },
+            "skipResourceValidationForExemptions": false,
+            "managedIdentityLocation": "westeurope"
+        },
+        {
+            "pacSelector": "env-thoor-security",
+            "cloud": "AzureCloud",
+            "tenantId": "b29a1c6d-3698-4e5d-b3c6-3a7e2976bf69",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/ThoorSecurity",
+            "desiredState": {
+                "strategy": "full",
+                "keepDfcSecurityAssignments": false,
+                "doNotDisableDeprecatedPolicies": false
+            },
+            "skipResourceValidationForExemptions": false,
+            "managedIdentityLocation": "westeurope",
+            "globalNotScopes": [
+                "/providers/Microsoft.Management/managementGroups/mg-Epac-Dev"
+            ]
+        }
+    ]
+}
