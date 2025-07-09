@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/pthoor/epac/main/schemas/policy-set-definition-schema.json",
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
   "name": "pi-online",
   "properties": {
     "displayName": "PolicySet for Online",
@@ -8,25 +8,12 @@
       "version": "1.0.0",
       "category": "Custom"
     },
-    "parameters": {
-        "parNetworkGroupId": {
-            "type": "String",
-            "metadata": {
-            "displayName": "networkGroupId",
-            "description": "Resource ID of the network group to which the virtual networks will be added."
-            },
-            "defaultValue": ""
-        }
-    },
+    "parameters": {},
     "policyDefinitions": [
       {
         "policyDefinitionReferenceId": "addVnetsNetworkgroupSECEOnline",
         "policyDefinitionName": "add-vnets-networkgroup-sece-online",
-        "parameters": {
-          "networkGroupId": {
-            "value": "[parameters('parNetworkGroupId')]"
-          }
-        }
+        "parameters": {}
       }
     ]
   }
