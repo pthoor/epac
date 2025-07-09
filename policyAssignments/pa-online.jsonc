@@ -2,17 +2,15 @@
     "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
     "nodeName": "/Online/",
     "parameterFile": "pa-online.csv",
-    "definitionEntryList": [
-        {
-            "policyName": "add-vnets-networkgroup-sece-online",
-            "assignment": {
-                "append": false,
-                "name": "add-vnets-networkgroup-sece-online",
-                "displayName": "Add VNets to Network Group Online, Sweden Central - ",
-                "description": "Description field"
-            }
+    "definitionEntry": {
+        "policyName": "add-vnets-networkgroup-sece-online",
+        "assignment": {
+            "append": false,
+            "name": "add-vnets-networkgroup-sece-online",
+            "displayName": "Add VNets to Network Group Online, Sweden Central - ",
+            "description": "Description field"
         }
-    ],
+    },
     "children": [
         //Thoor tenant
         {
