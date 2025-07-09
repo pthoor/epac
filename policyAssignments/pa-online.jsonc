@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "$schema": "https://raw.githubusercontent.com/pthoor/epac/main/schemas/policy-assignment-schema.json",
     "nodeName": "/Online/",
     "parameterFile": "pa-online.csv",
     "definitionEntryList": [
