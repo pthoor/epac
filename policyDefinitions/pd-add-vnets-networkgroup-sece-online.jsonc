@@ -4,7 +4,7 @@
     "properties": {
         "displayName": "Automatically Assign Virtual Networks in Sweden Central to the Online Network Group in Azure Virtual Network Manager",
         "policyType": "Custom",
-        "mode": "All",
+        "mode": "Microsoft.Network.Data",
         "description": "Automatically assigns virtual networks in Sweden Central to the Online Network Group in Azure Virtual Network Manager for efficient network organization.",
         "metadata": {
             "version": "1.0.0",
