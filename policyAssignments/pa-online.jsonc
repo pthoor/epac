@@ -31,9 +31,8 @@
         },
         // Thoor Security tenant
         {
-            "nodeName": "Online/",
+            "nodeName": "TS-Online/",
             "nonComplianceMessageColumn": "nonComplianceMessages",
-            "enforcementMode": "DoNotEnforce",
             "assignment": {
                 "name": "online",
                 "displayName": "Online"
