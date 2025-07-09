@@ -23,7 +23,7 @@
                 ],
                 "defaultValue": "addToNetworkGroup"
             },
-            "networkGroupId": {
+            "parNetworkGroupId": {
                 "type": "String",
                 "metadata": {
                     "displayName": "Network Group ID",
@@ -44,7 +44,7 @@
             "then": {
                 "effect": "[parameters('effect')]",
                 "details": {
-                    "networkGroupId": "[parameters('networkGroupId')]"
+                    "networkGroupId": "[parameters('parNetworkGroupId')]"
                 }
             }
         }
