@@ -4,12 +4,12 @@
     "parameterFile": "pa-online.csv",
     "definitionEntryList": [
         {
-            "policyName": "",
+            "policyName": "add-vnets-networkgroup-sece-online",
             "assignment": {
                 "append": false,
-                "name": "",
-                "displayName": "",
-                "description": ""
+                "name": "add-vnets-networkgroup-sece-online",
+                "displayName": "Add VNets to Network Group Online, Sweden Central - ",
+                "description": "Description field"
             }
         }
     ],
