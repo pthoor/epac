@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "$schema": "https://raw.githubusercontent.com/pthoor/epac/main/schemas/policy-set-definition-schema.json",
   "name": "pi-online",
   "properties": {
     "displayName": "PolicySet for Online",
