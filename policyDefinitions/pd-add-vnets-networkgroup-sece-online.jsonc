@@ -11,18 +11,6 @@
             "category": "Azure Virtual Network Manager"
         },
         "parameters": {
-            "effect": {
-                "type": "String",
-                "metadata": {
-                    "displayName": "Effect",
-                    "description": "The effect of the policy. Choose 'addToNetworkGroup' to automatically add virtual networks to the specified network group."
-                },
-                "allowedValues": [
-                    "addToNetworkGroup",
-                    "Disabled"
-                ],
-                "defaultValue": "addToNetworkGroup"
-            },
             "parNetworkGroupId": {
                 "type": "String",
                 "metadata": {
@@ -42,7 +30,7 @@
                 ]
             },
             "then": {
-                "effect": "[parameters('effect')]",
+                "effect": "addToNetworkGroup",
                 "details": {
                     "networkGroupId": "[parameters('parNetworkGroupId')]"
                 }
