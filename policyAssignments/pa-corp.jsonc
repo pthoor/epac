@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+    "nodeName": "/Corp/",
+    "parameterFile": "pa-corp.csv",
+    "definitionEntryList": [
+        {
+            "policySetName": "pi-corp",
+            "assignment": {
+                "append": false,
+                "name": "corp - ",
+                "displayName": "Test Corp Policy Set - ",
+                "description": "This is a test assignment for the Corp policy set."
+            }
+        }
+    ],
+    "children": [
+        //Thoor tenant
+        {
+            "nodeName": "Corp/",
+            "nonComplianceMessageColumn": "nonComplianceMessages",
+            "assignment": {
+                "name": "corp",
+                "displayName": "Corp"
+            },
+            "parameterSelector": "myorg-demo-corp",
+            "scope": {
+                "env-thoor": [
+                    "/providers/Microsoft.Management/managementGroups/myorg-demo-corp"
+                ]
+            }
+        },
+        // Thoor Security tenant
+        {
+            "nodeName": "TS-Corp/",
+            "nonComplianceMessageColumn": "nonComplianceMessages",
+            "assignment": {
+                "name": "corp",
+                "displayName": "Corp"
+            },
+            "parameterSelector": "alz-landingzones-corp",
+            "scope": {
+                "env-thoor-security": [
+                    "/providers/Microsoft.Management/managementGroups/alz-landingzones-corp"
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+    "name": "add-vnets-networkgroup-sece-corp",
+    "properties": {
+        "displayName": "Automatically Assign Virtual Networks in Sweden Central to the Corp Network Group in Azure Virtual Network Manager",
+        "policyType": "Custom",
+        "mode": "Microsoft.Network.Data",
+        "description": "Automatically assigns virtual networks in Sweden Central to the Corp Network Group in Azure Virtual Network Manager for efficient network organization.",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Azure Virtual Network Manager"
+        },
+        "parameters": {},
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "location",
+                        "contains": "SwedenCentral"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "addToNetworkGroup",
+                "details": {
+                    "networkGroupId": "/subscriptions/555e8304-e581-4bb3-b2ad-9d55d69b5907/resourceGroups/Network/providers/Microsoft.Network/networkManagers/avnm01/networkGroups/Corp"
+                }
+            }
+        }
+    }
+}
