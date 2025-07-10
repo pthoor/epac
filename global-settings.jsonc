@@ -26,10 +26,7 @@
                 "doNotDisableDeprecatedPolicies": false
             },
             "skipResourceValidationForExemptions": false,
-            "managedIdentityLocation": "westeurope",
-            "globalNotScopes": [
-                "/providers/Microsoft.Management/managementGroups/mg-Epac-Dev"
-            ]
+            "managedIdentityLocation": "westeurope"
         }
     ]
 }

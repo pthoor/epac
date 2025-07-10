@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-set-definition-schema.json",
+  "name": "pi-online-thoor-security",
+  "properties": {
+    "displayName": "PolicySet for Online",
+    "description": "This policy set contains policies related to the Online environment.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Custom"
+    },
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "addVnetsNetworkgroupSECEOnline",
+        "policyDefinitionName": "thoor-security-add-vnets-networkgroup-sece-online",
+        "parameters": {}
+      }
+    ]
+  }
+}

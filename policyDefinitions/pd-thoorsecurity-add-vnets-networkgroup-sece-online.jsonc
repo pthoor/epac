@@ -1,0 +1,31 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
+    "name": "thoor-security-add-vnets-networkgroup-sece-online",
+    "properties": {
+        "displayName": "Automatically Assign Virtual Networks in Sweden Central to the Online Network Group in Azure Virtual Network Manager",
+        "policyType": "Custom",
+        "mode": "Microsoft.Network.Data",
+        "description": "Automatically assigns virtual networks in Sweden Central to the Online Network Group in Azure Virtual Network Manager for efficient network organization.",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Azure Virtual Network Manager"
+        },
+        "parameters": {},
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "location",
+                        "contains": "SwedenCentral"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "addToNetworkGroup",
+                "details": {
+                    "networkGroupId": "/subscriptions/c1e29f04-a3f0-4eab-9c9b-dc3c07620f67/resourceGroups/NetworkHub/providers/Microsoft.Network/networkManagers/avnm01/networkGroups/Online-sece"
+                }
+            }
+        }
+    }
+}
