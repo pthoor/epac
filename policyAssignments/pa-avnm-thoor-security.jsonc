@@ -1,48 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
   "nodeName": "/AVNM/",
-  "parameterFile": "pa-avnm.csv",
+  "parameterFile": "pa-avnm-thoor-security.csv",
   "children": [
-    // Thoor tenant - corp
-    {
-      "nodeName": "Corp/",
-      "definitionEntryList": [
-        {
-          "policySetName": "pi-corp",
-          "assignment": {
-            "name": "thoor-avnm-corp",
-            "displayName": "AVNM Corp Policies for Thoor tenant",
-            "description": "Assigns AVNM Corp policies for Thoor tenant"
-          }
-        }
-      ],
-      "parameterSelector": "myorg-demo-corp",
-      "scope": {
-        "env-thoor": [
-          "/providers/Microsoft.Management/managementGroups/myorg-demo-corp"
-        ]
-      }
-    },
-    // Thoor tenant - online
-    {
-      "nodeName": "Online/",
-      "definitionEntryList": [
-        {
-          "policySetName": "pi-online",
-          "assignment": {
-            "name": "thoor-avnm-online",
-            "displayName": "AVNM Online Policies for Thoor tenant",
-            "description": "Assigns AVNM Online policies for Thoor tenant"
-          }
-        }
-      ],
-      "parameterSelector": "myorg-demo-online",
-      "scope": {
-        "env-thoor": [
-          "/providers/Microsoft.Management/managementGroups/myorg-demo-online"
-        ]
-      }
-    },
     // Thoor Security tenant - corp
     {
       "nodeName": "Corp/",
