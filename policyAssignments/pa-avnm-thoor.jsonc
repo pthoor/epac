@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
-  "nodeName": "/AVNM/",
+  "nodeName": "/AVNM-Thoor/",
   "parameterFile": "pa-avnm-thoor.csv",
   "children": [
     // Thoor tenant - corp
