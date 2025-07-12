@@ -16,7 +16,7 @@
           }
         }
       ],
-      "parameterSelector": "myorg-demo-corp",
+      //"parameterSelector": "myorg-demo-corp",
       "scope": {
         "env-thoor": [
           "/providers/Microsoft.Management/managementGroups/myorg-demo-corp"
@@ -36,7 +36,7 @@
           }
         }
       ],
-      "parameterSelector": "myorg-demo-online",
+      //"parameterSelector": "myorg-demo-online",
       "scope": {
         "env-thoor": [
           "/providers/Microsoft.Management/managementGroups/myorg-demo-online"
