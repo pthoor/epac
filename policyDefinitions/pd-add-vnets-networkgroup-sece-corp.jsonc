@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-definition-schema.json",
     "name": "add-vnets-networkgroup-sece-corp",
     "properties": {
-        "displayName": "Automatically Assign Virtual Networks in Sweden Central to the Corp Network Group in Azure Virtual Network Manager",
+        "displayName": "T-Automatically Assign Virtual Networks in Sweden Central to the Corp Network Group in Azure Virtual Network Manager",
         "policyType": "Custom",
         "mode": "Microsoft.Network.Data",
         "description": "Automatically assigns virtual networks in Sweden Central to the Corp Network Group in Azure Virtual Network Manager for efficient network organization.",
