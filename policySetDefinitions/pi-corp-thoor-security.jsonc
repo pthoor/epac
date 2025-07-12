@@ -11,7 +11,7 @@
     "parameters": {},
     "policyDefinitions": [
       {
-        "policyDefinitionReferenceId": "addVnetsNetworkgroupSECECorp",
+        "policyDefinitionReferenceId": "ts-addVnetsNetworkgroupSECECorp",
         "policyDefinitionName": "thoor-security-add-vnets-networkgroup-sece-corp",
         "parameters": {}
       }

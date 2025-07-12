@@ -11,7 +11,7 @@
     "parameters": {},
     "policyDefinitions": [
       {
-        "policyDefinitionReferenceId": "addVnetsNetworkgroupSECEOnline",
+        "policyDefinitionReferenceId": "ts-addVnetsNetworkgroupSECEOnline",
         "policyDefinitionName": "thoor-security-add-vnets-networkgroup-sece-online",
         "parameters": {}
       }
