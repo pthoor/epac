@@ -16,7 +16,7 @@
           }
         }
       ],
-      "parameterSelector": "alz-landingzones-corp",
+      //"parameterSelector": "alz-landingzones-corp",
       "scope": {
         "env-thoor-security": [
           "/providers/Microsoft.Management/managementGroups/alz-landingzones-corp"
