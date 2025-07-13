@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/global-settings-schema.json",
+    "pacOwnerId": "9aec3792-d838-4560-91d9-b85245f47e99",
+    "pacEnvironments": [
+        {
+            "pacSelector": "env-thoor",
+            "cloud": "AzureCloud",
+            "tenantId": "53e99220-a268-4aca-bfa9-883bcb880767",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/myorg",
+            "desiredState": {
+                "strategy": "full",
+                "keepDfcSecurityAssignments": false,
+                "doNotDisableDeprecatedPolicies": false
+            },
+            "skipResourceValidationForExemptions": false,
+            "managedIdentityLocation": "westeurope"
+        }
+    ]
+}

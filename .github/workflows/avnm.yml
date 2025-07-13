@@ -1,0 +1,55 @@
+name: EPAC AVNM - Multi-Tenant
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened, closed ]
+    paths:
+      - 'avnm/**'
+  workflow_dispatch:
+
+jobs:
+  detect-tenants:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: changed
+        run: |
+            echo "CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^avnm/' | cut -d '/' -f2 | sort -u | jq -R . | jq -s .)" >> $GITHUB_ENV
+
+      - id: set-matrix
+        run: |
+            echo "matrix={\"tenant\": $CHANGED}" >> $GITHUB_OUTPUT
+
+  epac:
+    name: "Deploy AVNM for tenants"
+    needs: detect-tenants
+    runs-on: ubuntu-latest
+    if: needs.detect-tenants.outputs.matrix != '[]'
+    strategy:
+      matrix: ${{ fromJson(needs.detect-tenants.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install EPAC module
+        shell: pwsh
+        run: |
+          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser -AllowClobber
+          Import-Module EnterprisePolicyAsCode
+
+      - name: Build Plan for ${{ matrix.tenant }}
+        shell: pwsh
+        run: |
+          Build-DeploymentPlans `
+            -PacEnvironmentSelector "env-${{ matrix.tenant }}" `
+            -DefinitionsRootFolder "avnm/${{ matrix.tenant }}"
+
+      - name: Deploy Plan for ${{ matrix.tenant }}
+        shell: pwsh
+        run: |
+          Deploy-PolicyPlan `
+            -PacEnvironmentSelector "env-${{ matrix.tenant }}" `
+            -DefinitionsRootFolder "avnm/${{ matrix.tenant }}"
