@@ -18,9 +18,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Ensure jq is available
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - id: set-matrix
         run: |
-          changed=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^avnm/' | cut -d '/' -f2 | sort -u | uniq)
+          echo "Detecting changed tenants..."
+
+          changed=$(git diff --name-only ${{ github.event.before || 'HEAD~1' }} ${{ github.sha }} | grep '^avnm/' | cut -d '/' -f2 | sort -u | uniq)
+
+          if [[ -z "$changed" ]]; then
+            echo "No changes detected, using all tenants under avnm/"
+            changed=$(find avnm -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+          fi
+
+          echo "Changed tenants:"
+          echo "$changed"
+
           matrix=$(echo "$changed" | jq -R . | jq -cs .)
           echo "tenantMatrix={\"tenant\": $matrix}" >> $GITHUB_OUTPUT
 
