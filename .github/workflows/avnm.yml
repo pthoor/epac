@@ -52,7 +52,6 @@ jobs:
       planGitHubEnvironment: env-${{ matrix.tenant }}-epac-plan
       PAC_OUTPUT_FOLDER: ./Output
       PAC_DEFINITIONS_FOLDER: ./avnm/${{ matrix.tenant }}
-      matrix: ${{ toJson(matrix) }}
     secrets: inherit
 
   deploy:
