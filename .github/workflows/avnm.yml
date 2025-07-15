@@ -56,13 +56,48 @@ jobs:
 
   deploy:
     needs: plan
-    if: needs.plan.outputs.deployPolicyChanges == 'yes' && github.ref == 'refs/heads/main'
     strategy:
       matrix: ${{ fromJson(needs.detect-tenants.outputs.tenants) }}
-    uses: ./.github/workflows/deploy-policy.yml
-    with:
-      pacEnvironmentSelector: env-${{ matrix.tenant }}
-      planGitHubEnvironment: env-${{ matrix.tenant }}-epac-deploy
-      PAC_INPUT_FOLDER: ./Output
-      PAC_DEFINITIONS_FOLDER: ./avnm/${{ matrix.tenant }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    environment: env-${{ matrix.tenant }}-epac-deploy
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Plan Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: plans-env-${{ matrix.tenant }}
+          path: ./Output
+
+      - name: Install Required Modules
+        uses: Azure/powershell@v2
+        with:
+          inlineScript: |
+            Install-Module EnterprisePolicyAsCode -Force
+          azPSVersion: "latest"
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          enable-AzPSSession: true
+          allow-no-subscriptions: true
+
+      - name: Check Plan File
+        id: check-plan
+        run: |
+          if [ -f "./Output/policy-plan.json" ]; then
+            echo "deployPolicyChanges=yes" >> $GITHUB_OUTPUT
+          else
+            echo "No plan file found. Skipping deploy."
+          fi
+
+      - name: Deploy Policy
+        if: steps.check-plan.outputs.deployPolicyChanges == 'yes'
+        uses: azure/powershell@v2
+        with:
+          inlineScript: |
+            Deploy-PolicyPlan -PacEnvironmentSelector env-${{ matrix.tenant }} -InformationAction Continue
+          azPSVersion: "latest"
+
