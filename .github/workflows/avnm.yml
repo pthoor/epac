@@ -9,6 +9,11 @@ on:
       - 'avnm/**'
   workflow_dispatch:
 
+env:
+  PAC_OUTPUT_FOLDER: ./Output
+  PAC_DEFINITIONS_FOLDER: ./avnm
+
+
 permissions:
   contents: read
   id-token: write
@@ -60,7 +65,7 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.detect-tenants.outputs.tenants) }}
     runs-on: ubuntu-latest
-    environment: env-${{ matrix.tenant }}-epac-deploy
+    environment: env-${{ matrix.tenant }}-epac-deploy-policy
     steps:
       - name: Debug tenant matrix
         env:
