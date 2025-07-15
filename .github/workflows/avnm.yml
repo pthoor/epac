@@ -55,10 +55,10 @@ jobs:
     secrets: inherit
 
   deploy:
-    needs: plan
+    needs: 
+      [detect-tenants, plan]
     strategy:
-      matrix:
-        tenant: ${{ fromJson(needs.detect-tenants.outputs.tenants).tenant }}
+      matrix: ${{ fromJson(needs.detect-tenants.outputs.tenants) }}
     runs-on: ubuntu-latest
     environment: env-${{ matrix.tenant }}-epac-deploy
     steps:
