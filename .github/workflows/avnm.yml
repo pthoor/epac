@@ -31,7 +31,7 @@ jobs:
     uses: ./.github/workflows/plan.yml
     with:
       pacEnvironmentSelector: env-${{ matrix.tenant }}
-      planGitHubEnvironment: env-${{ matrix.tenant }}-avnm-plan
+      planGitHubEnvironment: env-${{ matrix.tenant }}-plan
       PAC_OUTPUT_FOLDER: ./Output
       PAC_DEFINITIONS_FOLDER: ./avnm/${{ matrix.tenant }}
     secrets: inherit
@@ -44,7 +44,7 @@ jobs:
     uses: ./.github/workflows/deploy-policy.yml
     with:
       pacEnvironmentSelector: env-${{ matrix.tenant }}
-      planGitHubEnvironment: env-${{ matrix.tenant }}-avnm-deploy
+      planGitHubEnvironment: env-${{ matrix.tenant }}-deploy
       PAC_INPUT_FOLDER: ./Output
       PAC_DEFINITIONS_FOLDER: ./avnm/${{ matrix.tenant }}
     secrets: inherit
