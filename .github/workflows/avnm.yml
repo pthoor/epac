@@ -1,55 +1,50 @@
-name: EPAC AVNM - Multi-Tenant
+name: EPAC AVNM Deployment
 
 on:
   pull_request:
-    branches: [ main ]
-    types: [ opened, synchronize, reopened, closed ]
+    branches:
+      - main
+    types: [closed]
     paths:
       - 'avnm/**'
   workflow_dispatch:
 
 jobs:
   detect-tenants:
+    name: Detect changed tenants
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      tenants: ${{ steps.set-matrix.outputs.tenantMatrix }}
     steps:
       - uses: actions/checkout@v4
-
-      - id: changed
-        run: |
-            echo "CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^avnm/' | cut -d '/' -f2 | sort -u | jq -R . | jq -s .)" >> $GITHUB_ENV
 
       - id: set-matrix
         run: |
-            echo "matrix={\"tenant\": $CHANGED}" >> $GITHUB_OUTPUT
+          changed=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^avnm/' | cut -d '/' -f2 | sort -u | uniq)
+          matrix=$(echo "$changed" | jq -R . | jq -cs .)
+          echo "tenantMatrix={\"tenant\": $matrix}" >> $GITHUB_OUTPUT
 
-  epac:
-    name: "Deploy AVNM for tenants"
+  plan:
     needs: detect-tenants
-    runs-on: ubuntu-latest
-    if: needs.detect-tenants.outputs.matrix != '[]'
     strategy:
-      matrix: ${{ fromJson(needs.detect-tenants.outputs.matrix) }}
-    steps:
-      - uses: actions/checkout@v4
+      matrix: ${{ fromJson(needs.detect-tenants.outputs.tenants) }}
+    uses: ./.github/workflows/plan.yml
+    with:
+      pacEnvironmentSelector: env-${{ matrix.tenant }}
+      planGitHubEnvironment: env-${{ matrix.tenant }}-avnm-plan
+      PAC_OUTPUT_FOLDER: ./Output
+      PAC_DEFINITIONS_FOLDER: ./avnm/${{ matrix.tenant }}
+    secrets: inherit
 
-      - name: Install EPAC module
-        shell: pwsh
-        run: |
-          Install-Module EnterprisePolicyAsCode -Force -Scope CurrentUser -AllowClobber
-          Import-Module EnterprisePolicyAsCode
-
-      - name: Build Plan for ${{ matrix.tenant }}
-        shell: pwsh
-        run: |
-          Build-DeploymentPlans `
-            -PacEnvironmentSelector "env-${{ matrix.tenant }}" `
-            -DefinitionsRootFolder "avnm/${{ matrix.tenant }}"
-
-      - name: Deploy Plan for ${{ matrix.tenant }}
-        shell: pwsh
-        run: |
-          Deploy-PolicyPlan `
-            -PacEnvironmentSelector "env-${{ matrix.tenant }}" `
-            -DefinitionsRootFolder "avnm/${{ matrix.tenant }}"
+  deploy:
+    needs: plan
+    if: needs.plan.outputs.deployPolicyChanges == 'yes' && github.ref == 'refs/heads/main'
+    strategy:
+      matrix: ${{ fromJson(needs.detect-tenants.outputs.tenants) }}
+    uses: ./.github/workflows/deploy-policy.yml
+    with:
+      pacEnvironmentSelector: env-${{ matrix.tenant }}
+      planGitHubEnvironment: env-${{ matrix.tenant }}-avnm-deploy
+      PAC_INPUT_FOLDER: ./Output
+      PAC_DEFINITIONS_FOLDER: ./avnm/${{ matrix.tenant }}
+    secrets: inherit
