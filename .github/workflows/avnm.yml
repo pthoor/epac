@@ -52,15 +52,23 @@ jobs:
       planGitHubEnvironment: env-${{ matrix.tenant }}-epac-plan
       PAC_OUTPUT_FOLDER: ./Output
       PAC_DEFINITIONS_FOLDER: ./avnm/${{ matrix.tenant }}
+      matrix: ${{ toJson(matrix) }}
     secrets: inherit
 
   deploy:
     needs: plan
     strategy:
-      matrix: ${{ fromJson(needs.detect-tenants.outputs.tenants) }}
+      matrix:
+        tenant: ${{ fromJson(needs.detect-tenants.outputs.tenants).tenant }}
     runs-on: ubuntu-latest
     environment: env-${{ matrix.tenant }}-epac-deploy
     steps:
+      - name: Debug tenant matrix
+        env:
+          tenant: ${{ matrix.tenant }}
+        run: |
+          echo "Matrix tenant: $tenant"
+
       - uses: actions/checkout@v4
 
       - name: Download Plan Artifact
